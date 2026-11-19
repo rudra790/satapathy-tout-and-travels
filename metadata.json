@@ -1,0 +1,8 @@
+{
+  "name": "Satapathy Tour and Travels",
+  "description": "Self-drive car and upcoming bike rentals with transparent, negotiable package pricing and direct WhatsApp booking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
