@@ -13,9 +13,12 @@ interface BookingContextValue {
   isAutoPopup: boolean;
   prefill: BookingPrefill;
   introFinished: boolean;
+  isCarAnimating: boolean;
   finishIntro: () => void;
   openBooking: (prefill?: BookingPrefill) => void;
   closeBooking: () => void;
+  triggerCarAnimation: () => void;
+  stopCarAnimation: () => void;
 }
 
 const BookingContext = createContext<BookingContextValue | null>(null);
@@ -25,6 +28,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   const [isAutoPopup, setIsAutoPopup] = useState(false);
   const [prefill, setPrefill] = useState<BookingPrefill>({});
   const [introFinished, setIntroFinished] = useState(false);
+  const [isCarAnimating, setIsCarAnimating] = useState(false);
 
   const finishIntro = useCallback(() => {
     setIntroFinished(true);
@@ -41,9 +45,17 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     setIsAutoPopup(false);
   }, []);
 
+  const triggerCarAnimation = useCallback(() => {
+    setIsCarAnimating(true);
+  }, []);
+
+  const stopCarAnimation = useCallback(() => {
+    setIsCarAnimating(false);
+  }, []);
+
   // Trigger booking popup every 10 seconds whenever the modal is closed and intro splash is done
   useEffect(() => {
-    if (!introFinished || isOpen) {
+    if (!introFinished || isOpen || isCarAnimating) {
       return;
     }
 
@@ -60,7 +72,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
     return () => {
       window.clearTimeout(timer);
     };
-  }, [introFinished, isOpen]);
+  }, [introFinished, isOpen, isCarAnimating]);
 
   return (
     <BookingContext.Provider
@@ -69,9 +81,12 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
         isAutoPopup,
         prefill,
         introFinished,
+        isCarAnimating,
         finishIntro,
         openBooking,
         closeBooking,
+        triggerCarAnimation,
+        stopCarAnimation,
       }}
     >
       {children}

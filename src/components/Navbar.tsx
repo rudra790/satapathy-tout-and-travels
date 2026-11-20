@@ -17,7 +17,7 @@ const NAV_ITEMS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { openBooking } = useBooking();
+  const { openBooking, triggerCarAnimation } = useBooking();
 
   useEffect(() => {
     const onScroll = () => {
@@ -57,6 +57,11 @@ export function Navbar() {
                   key={item.to}
                   to={item.to}
                   end={item.to === '/'}
+                  onClick={() => {
+                    if (item.to === '/cars') {
+                      triggerCarAnimation();
+                    }
+                  }}
                   className={({ isActive }) =>
                     `relative py-1.5 text-sm font-semibold whitespace-nowrap shrink-0 transition-colors duration-150 ${
                       isActive

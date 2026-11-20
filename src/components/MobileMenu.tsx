@@ -12,7 +12,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProps) {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
-  const { openBooking } = useBooking();
+  const { openBooking, triggerCarAnimation } = useBooking();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -78,7 +78,12 @@ export function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProps) {
                 key={item.to}
                 to={item.to}
                 end={item.to === '/'}
-                onClick={onClose}
+                onClick={() => {
+                  if (item.to === '/cars') {
+                    triggerCarAnimation();
+                  }
+                  onClose();
+                }}
                 className={({ isActive }) =>
                   `flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
                     isActive
@@ -100,29 +105,28 @@ export function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProps) {
               onClose();
               openBooking();
             }}
-            className="w-full py-3.5 px-5 rounded-xl bg-[#F36B16] hover:bg-[#d95b0e] text-white font-semibold text-base shadow-sm transition-colors cursor-pointer"
+            className="w-full py-3 px-4 rounded-xl bg-[#F36B16] hover:bg-[#d95b0e] text-white font-semibold text-center transition-colors cursor-pointer"
           >
             Book Now
           </button>
 
-          <div className="grid grid-cols-2 gap-2.5">
-            <a
-              href={BRAND_CONFIG.whatsappBaseUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm font-semibold transition-colors"
-            >
-              <MessageCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
-              <span>WhatsApp</span>
-            </a>
-            <a
-              href={BRAND_CONFIG.phoneHref}
-              className="inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#071D3A] hover:bg-[#0B2345] text-white text-sm font-semibold transition-colors"
-            >
-              <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />
-              <span>Call</span>
-            </a>
-          </div>
+          <a
+            href={BRAND_CONFIG.whatsappBaseUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-semibold flex items-center justify-center gap-2 transition-colors"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>WhatsApp Us</span>
+          </a>
+
+          <a
+            href={BRAND_CONFIG.phoneHref}
+            className="w-full py-3 px-4 rounded-xl border border-[#E5EAF0] bg-white hover:bg-slate-50 text-[#071D3A] font-semibold flex items-center justify-center gap-2 transition-colors"
+          >
+            <Phone className="w-4 h-4" />
+            <span>Call {BRAND_CONFIG.phoneDisplay}</span>
+          </a>
         </div>
       </div>
     </div>

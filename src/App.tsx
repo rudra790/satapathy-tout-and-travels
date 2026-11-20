@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { BookingProvider } from './context/BookingContext';
+import { BookingProvider, useBooking } from './context/BookingContext';
 import { IntroSplash } from './components/IntroSplash';
+import { CarAnimationOverlay } from './components/CarAnimationOverlay';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { BookingModal } from './components/BookingModal';
@@ -22,11 +23,17 @@ function ScrollToTop() {
   return null;
 }
 
+function GlobalCarAnimation() {
+  const { isCarAnimating, stopCarAnimation } = useBooking();
+  return <CarAnimationOverlay isVisible={isCarAnimating} onComplete={stopCarAnimation} />;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <BookingProvider>
         <IntroSplash />
+        <GlobalCarAnimation />
         <ScrollToTop />
         <div className="min-h-screen flex flex-col bg-white text-[#172337] overflow-x-clip">
           <Navbar />

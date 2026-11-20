@@ -7,8 +7,11 @@ import {
   Car,
   Clock,
   Compass,
+  FileText,
+  Key,
   MapPin,
   MessageCircle,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   BRAND_CONFIG,
@@ -23,6 +26,8 @@ import { usePageMeta } from '../utils/seo';
 import { SectionHeading } from '../components/SectionHeading';
 import { VehicleCard } from '../components/VehicleCard';
 import { ResilientImage } from '../components/ResilientImage';
+import { DocumentChecklist } from '../components/DocumentChecklist';
+import { FAQSection } from '../components/FAQSection';
 
 export function Home() {
   usePageMeta({
@@ -31,7 +36,7 @@ export function Home() {
       'Explore more with convenient self-drive car rentals all over Rourkela from Satapathy Tour and Travels. Transparent negotiable packages for Swift Dzire, Baleno, Fronx, and Swift.',
   });
 
-  const { openBooking } = useBooking();
+  const { openBooking, triggerCarAnimation } = useBooking();
   const today = useMemo(() => getTodayDateString(), []);
 
   // Quick booking strip state
@@ -87,6 +92,7 @@ export function Home() {
             <div className="mt-8 flex flex-wrap items-center gap-3.5">
               <Link
                 to="/cars"
+                onClick={() => triggerCarAnimation()}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#F36B16] hover:bg-[#d95b0e] text-white font-semibold text-sm sm:text-base shadow-sm transition-colors whitespace-nowrap"
               >
                 <span>Explore Cars</span>
@@ -262,6 +268,7 @@ export function Home() {
               <div className="px-6 sm:px-8 pb-6 sm:pb-8">
                 <Link
                   to="/cars"
+                  onClick={() => triggerCarAnimation()}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#071D3A] hover:bg-[#0B2345] text-white font-semibold text-sm transition-colors"
                 >
                   <span>Explore Cars</span>
@@ -317,6 +324,7 @@ export function Home() {
             />
             <Link
               to="/cars"
+              onClick={() => triggerCarAnimation()}
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#F36B16] hover:text-[#d95b0e] whitespace-nowrap shrink-0"
             >
               <span>View All Cars</span>
@@ -385,52 +393,65 @@ export function Home() {
       <section className="py-16 sm:py-20 bg-[#F5F7FA] border-y border-[#E5EAF0]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Simple Process"
+            eyebrow="Simple 4-Step Process"
             title="How Booking Works"
-            description="Send your self-drive rental request in four clear steps."
+            description="From booking form to doorstep car handover at your location in 4 quick steps."
           />
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 step: '01',
-                icon: Car,
-                title: 'Choose Your Vehicle',
-                desc: 'Browse Swift Dzire, Baleno, Fronx, Swift, or choose Others for custom enquiries.',
+                icon: FileText,
+                title: 'Fill Up the Form',
+                desc: 'Select your preferred car (Swift Dzire, Baleno, Fronx, Swift), choose your rental duration (12h, 24h, weekly), and enter your travel dates.',
               },
               {
                 step: '02',
-                icon: Calendar,
-                title: 'Select Your Rental Duration',
-                desc: 'Pick 12 hours, 24 hours, 48 hours, 5 days, 1 week, 1 month, or custom dates.',
+                icon: BadgeIndianRupee,
+                title: 'Pay Advance Token',
+                desc: 'Pay a nominal advance token via UPI (GPay, PhonePe, Paytm) to lock and reserve your vehicle slot exclusively.',
               },
               {
                 step: '03',
-                icon: MessageCircle,
-                title: 'Submit Your Booking Request',
-                desc: 'Enter your name, mobile number, and optional notes to prepare a booking summary.',
+                icon: ShieldCheck,
+                title: 'Verify Documents',
+                desc: 'Share clear photos of your Driving Licence & Aadhaar Card on WhatsApp for fast 2-minute digital verification.',
               },
               {
                 step: '04',
-                icon: ArrowRight,
-                title: 'Confirm Details on WhatsApp',
-                desc: 'Send the prepared message on WhatsApp to confirm availability and negotiable final pricing.',
+                icon: Key,
+                title: 'Doorstep Handover',
+                desc: 'We deliver and handover the sanitized car with keys right at your location anywhere in Rourkela!',
               },
-            ].map((item) => (
-              <div
-                key={item.step}
-                className="relative bg-white rounded-2xl border border-[#E5EAF0] p-6"
-              >
-                <span className="inline-block text-xs font-extrabold tracking-wider text-[#F36B16] mb-3">
-                  STEP {item.step}
-                </span>
-                <h3 className="text-lg font-bold text-[#071D3A]">{item.title}</h3>
-                <p className="mt-2 text-sm text-[#697586] leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.step}
+                  className="relative bg-white rounded-2xl border border-[#E5EAF0] hover:border-[#F36B16]/50 p-6 flex flex-col justify-between transition-all duration-200 hover:shadow-lg"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="inline-block text-xs font-black tracking-wider text-[#F36B16]">
+                        STEP {item.step}
+                      </span>
+                      <div className="w-10 h-10 rounded-xl bg-[#FFF3E9] text-[#F36B16] flex items-center justify-center">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-bold text-[#071D3A]">{item.title}</h3>
+                    <p className="mt-2 text-sm text-[#697586] leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
+
+      {/* DOCUMENT CHECKLIST SECTION */}
+      <DocumentChecklist />
 
       {/* SECTION 7 — ABOUT PREVIEW */}
       <section className="py-16 sm:py-20 bg-white">
@@ -467,7 +488,10 @@ export function Home() {
         </div>
       </section>
 
-      {/* SECTION 8 — FINAL CTA */}
+      {/* SECTION 8 — FREQUENTLY ASKED QUESTIONS */}
+      <FAQSection />
+
+      {/* SECTION 9 — FINAL CTA */}
       <section className="bg-[#071D3A] py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl bg-gradient-to-br from-[#0B2345] to-[#071D3A] border border-white/10 p-8 sm:p-12 flex flex-col lg:flex-row lg:items-center justify-between gap-8">

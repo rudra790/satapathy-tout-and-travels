@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BadgeIndianRupee, MessageCircle } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { BadgeIndianRupee, MessageCircle, Zap } from 'lucide-react';
 import { BRAND_CONFIG, CAR_MODELS, type CarModel } from '../data/vehicles';
 import { usePageMeta } from '../utils/seo';
 import { VehicleCard } from '../components/VehicleCard';
@@ -15,7 +15,14 @@ export function Cars() {
   });
 
   const [detailCar, setDetailCar] = useState<CarModel | null>(null);
-  const { openBooking } = useBooking();
+  const { openBooking, triggerCarAnimation, introFinished } = useBooking();
+
+  // Play the 2-second car animation whenever arriving on the Cars page
+  useEffect(() => {
+    if (introFinished) {
+      triggerCarAnimation();
+    }
+  }, [introFinished, triggerCarAnimation]);
 
   return (
     <div>
@@ -48,13 +55,25 @@ export function Cars() {
             <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed">
               Explore our self-drive car rental options and choose the right vehicle for your journey.
             </p>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => triggerCarAnimation()}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer"
+                title="Click to watch the 2s car animation again"
+              >
+                <Zap className="w-3.5 h-3.5 text-[#F36B16]" />
+                <span>Play 2s Car Animation</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* PRICING NOTICE */}
       <section className="bg-[#FFF3E9] border-b border-[#F36B16]/25">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <BadgeIndianRupee className="w-5 h-5 text-[#F36B16] shrink-0" aria-hidden="true" />
             <p className="text-sm font-semibold text-[#071D3A]">

@@ -58,6 +58,11 @@ export function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <a href="/#faq" className="text-slate-200 hover:text-[#F36B16] transition-colors">
+                  FAQs &amp; Documents
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -33,6 +33,7 @@ import {
 } from '../utils/whatsapp';
 import { BookingSuccess } from './BookingSuccess';
 import { ResilientImage } from './ResilientImage';
+import { DocumentChecklist } from './DocumentChecklist';
 
 interface BookingFormProps {
   prefill?: BookingPrefill;
@@ -676,6 +677,9 @@ export function BookingForm({
           className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5EAF0] bg-white text-[#172337] text-sm focus:outline-none focus:border-[#F36B16] focus:ring-2 focus:ring-[#F36B16]/20"
         />
       </section>
+
+      {/* Required Documents Checklist Reminder */}
+      <DocumentChecklist variant="compact" className="my-2" />
 
       {/* Step 7: Live Price Estimate & Booking Summary */}
       <section aria-labelledby="booking-summary-heading" className="rounded-2xl bg-[#071D3A] text-white p-5">
