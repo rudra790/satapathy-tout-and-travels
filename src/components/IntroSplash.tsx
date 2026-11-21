@@ -302,9 +302,9 @@ export function IntroSplash() {
               {/* RUNNING MODERN SPORTBIKE (Leading the track)              */}
               {/* ---------------------------------------------------------- */}
               <motion.div
-                initial={{ x: '-28vw', opacity: 0 }}
+                initial={{ x: '-120%', opacity: 0 }}
                 animate={{
-                  x: ['-25vw', '34vw', '56vw', '110vw'],
+                  x: ['-120%', '32vw', '56vw', '120vw'],
                   opacity: [0, 1, 1, 0],
                   y: [0, -2, 0, -1.5],
                 }}
@@ -313,7 +313,7 @@ export function IntroSplash() {
                   times: [0, 0.28, 0.65, 1],
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="absolute bottom-[24px] left-0 w-28 sm:w-36 drop-shadow-[0_12px_20px_rgba(0,0,0,0.7)]"
+                className="absolute bottom-[24px] left-0 w-28 sm:w-36 drop-shadow-[0_12px_20px_rgba(0,0,0,0.7)] pointer-events-none"
               >
                 {/* Bike Headlight Beam (Bright Projector Cone) */}
                 <div
@@ -383,9 +383,9 @@ export function IntroSplash() {
               {/* RUNNING LUXURY CAR (Powerful presence on the track)        */}
               {/* ---------------------------------------------------------- */}
               <motion.div
-                initial={{ x: '-52vw', opacity: 0 }}
+                initial={{ x: '-140%', opacity: 0 }}
                 animate={{
-                  x: ['-48vw', '6vw', '28vw', '106vw'],
+                  x: ['-140%', '6vw', '28vw', '120vw'],
                   opacity: [0, 1, 1, 0],
                   y: [0, -1.2, 0.4, 0],
                 }}
@@ -394,7 +394,7 @@ export function IntroSplash() {
                   times: [0, 0.25, 0.62, 1],
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="absolute bottom-[22px] left-0 w-48 sm:w-64 drop-shadow-[0_16px_28px_rgba(0,0,0,0.85)]"
+                className="absolute bottom-[22px] left-0 w-48 sm:w-64 drop-shadow-[0_16px_28px_rgba(0,0,0,0.85)] pointer-events-none"
               >
                 {/* Long Projector Headlight Cone on the Asphalt */}
                 <div
